@@ -9,4 +9,20 @@
             throw new Exception("Invalid name") : value;
     }
     public string MemberId { get; }
+    protected List<string> ActionLog { get; set; }
+
+    public UniversityMember(string name, string id)
+    {
+        Name = name;
+        MemberId = id;
+
+    }
+
+    public virtual void PerformDuties()
+    {
+        if (ActionLog.Count >= 5)
+        {
+            throw new Exception("Daily limit is reached");
+        }
+    }
 }

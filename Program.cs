@@ -1,2 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿public class UniversityMember
+{
+    private string _name;
+
+    public string Name
+    {
+        get => _name;
+        set => _name = string.IsNullOrEmpty(value) ? 
+            throw new Exception("Invalid name") : value;
+    }
+    public string MemberId { get; }
+}

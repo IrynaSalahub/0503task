@@ -5,9 +5,9 @@
     public string Name
     {
         get => _name;
-        set => _name = string.IsNullOrEmpty(value) ? 
-            throw new Exception("Invalid name") : value;
+        set => _name = string.IsNullOrEmpty(value) ? throw new Exception("Invalid name") : value;
     }
+
     public string MemberId { get; }
     protected List<string> ActionLog { get; set; }
 
@@ -25,7 +25,11 @@
             throw new Exception("Daily limit is reached");
         }
     }
+
+    public int ActionCount => ActionLog.Count;
 }
+
+
 
 public class Professor : UniversityMember
 {
@@ -41,6 +45,7 @@ public class Professor : UniversityMember
     {
         Console.WriteLine($"{Name}, research --> {topic}");
     }
+    
 }
 
 public class UndergraduateStudent : UniversityMember
@@ -65,4 +70,27 @@ public class GraduateStudent : UndergraduateStudent
     }
 }
 
+public class UniversityRegistry
+{
+    private List<UniversityMember> _members = new List<UniversityMember>();
+    public void AddMember(UniversityMember m) => _members.Add(m);
+
+    public void ExecuteAllDuties()
+    {
+        foreach (var member in _members)
+        {
+            member.PerformDuties();
+        }
+    }
+
+    public void GetMemberStatictics()
+    {
+        int totalactions = 0;
+        foreach (var member in _members)
+        {
+            totalactions += member.ActionCount;
+        }
+        Console.WriteLine($"Total actions across students --> {totalactions}");
+    }
+}
 
